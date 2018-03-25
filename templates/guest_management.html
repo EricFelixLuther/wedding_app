@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">#No</th>
+        <th rowspan="2">Name</th>
+        <th rowspan="2">Nickname</th>
+        <th rowspan="2">Side</th>
+        <th rowspan="2">Labels</th>
+        <th rowspan="2">Priority</th>
+        <th colspan="3">Confirmed</th>
+      </tr>
+      <tr>
+        <th>Adults</th>
+        <th>Children</th>
+        <th>Toddlers</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ form.id }}
+              {{ form.name }}{{ form.name.errors }}</td>
+          <td>{{ form.nickname }}{{ form.nickname.errors }}</td>
+          <td>{{ form.side }}{{ form.side.errors }}</td>
+          <td>{{ form.labels }}{{ form.labels.errors }}</td>
+          <td>{{ form.priority }}{{ form.priority.errors }}</td>
+          <td>{{ form.confirmed_adults }}{{ form.confirmed_adults.errors }}</td>
+          <td>{{ form.confirmed_children }}{{ form.confirmed_children.errors }}</td>
+          <td>{{ form.confirmed_toddlers }}{{ form.confirmed_toddlers.errors }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit">Save</button>
+</form>
+{% endblock content %}
