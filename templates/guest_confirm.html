@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-4">
+      Potwierdzam przybycie
+    </div>
+    <div class="col-sm-2">
+      {{ form.confirm }}
+    </div>
+  </div>
+  <form method="post">
+    <button type="submit" name="submit" value="Dalej">Wyslij</button>
+  </form>
+</div>
+{% endblock %}

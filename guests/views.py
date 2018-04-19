@@ -30,21 +30,19 @@ class Guests_Management(View):
 
 class Guest_Confirm(View):
     template_name = 'guest_confirm.html'
-    title = "Confirm your arrival"
+    title = "Potwierdzenie przybycia"
 
-    def get(self, request, guest_id, *args, **kwargs):
-        guest = Guest.objects.get(pk=guest_id)
-        raw_form = forms.modelform_factory(Guest,
-                                           fields=("confirmed_adults", "confirmed_children", "confirmed_toddlers"))
-        form = raw_form(instance=guest)
+    def get(self, request, *args, **kwargs):
+        form = forms.modelform_factory(Guest, fields=("password"))()
         return render(request, self.template_name,
                       {"title": self.title,
                        "form": form})
 
-    def post(self, request, guest_id, *args, **kwargs):
-        guest = Guest.objects.get(pk=guest_id)
+    def post(self, request, *args, **kwargs):
+        guest = Guest.objects.get(password=request.POST.get("password"))
         raw_form = forms.modelform_factory(Guest,
-                                           fields=("confirmed_adults", "confirmed_children", "confirmed_toddlers"))
+                                           fields=("confirmed_adults", "confirmed_children", "confirmed_toddlers",
+                                                   "transport", "night_stay", "food_type", "password", "confirm"))
         form = raw_form(instance=guest)
         return render(request, self.template_name,
                       {"title": self.title,

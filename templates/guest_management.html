@@ -4,7 +4,7 @@
 <form method="POST">
   {% csrf_token %}
   {{ formset.management_form }}
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th rowspan="2">#No</th>
@@ -14,6 +14,10 @@
         <th rowspan="2">Labels</th>
         <th rowspan="2">Priority</th>
         <th colspan="3">Confirmed</th>
+        <th rowspan="2">Password</th>
+        <th rowspan="2">Transport</th>
+        <th rowspan="2">Night stay</th>
+        <th rowspan="2">Food</th>
       </tr>
       <tr>
         <th>Adults</th>
@@ -34,6 +38,10 @@
           <td>{{ form.confirmed_adults }}{{ form.confirmed_adults.errors }}</td>
           <td>{{ form.confirmed_children }}{{ form.confirmed_children.errors }}</td>
           <td>{{ form.confirmed_toddlers }}{{ form.confirmed_toddlers.errors }}</td>
+          <td>{{ form.password }}{{ form.password.errors }}</td>
+          <td>{{ form.transport }}{{ form.transport.errors }}</td>
+          <td>{{ form.night_stay }}{{ form.night_stay.errors }}</td>
+          <td>{{ form.food_type }}{{ form.food_type.errors }}</td>
         </tr>
       {% endfor %}
     </tbody>
