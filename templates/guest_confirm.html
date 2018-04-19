@@ -2,20 +2,78 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container text-center">
   <form method="post">
     {% csrf_token %}
-    <div class="row">
-      <div class="col-sm-2 col-sm-offset-4">
+    {{ form.password.as_hidden }}
+    <div class="row align-items-center">
+      <div class="col">
+        <h2>{{ form.instance.name }}</h2>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
         Potwierdzam przybycie
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-6 col-md-5 ">
         {{ form.confirm }}
       </div>
     </div>
-    <div class="row">
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Dorosli
+      </div>
+      <div class="col-sm-6 col-md-5 ">
+        {{ form.confirmed_adults }}
+        {{ form.confirmed_adults.errors }}
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Dzieci w wieku 4 do 12 lat
+      </div>
+      <div class="col-sm-6 col-md-5 ">
+        {{ form.confirmed_children }}
+        {{ form.confirmed_children.errors }}
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Dzieci do lat 4
+      </div>
+      <div class="col-sm-6 col-md-5">
+        {{ form.confirmed_toddlers }}
+        {{ form.confirmed_toddlers.errors }}
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Czy potrzebujecie transportu autokarem spod kosciola na wesele?
+      </div>
+      <div class="col-sm-6 col-md-5 ">
+        {{ form.transport }}
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Czy potrzebujecie noclegu? (Cena: )
+      </div>
+      <div class="col-sm-6 col-md-5 ">
+        {{ form.night_stay }}
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Rodzaj menu
+      </div>
+      <div class="col-sm-6 col-md-5">
+        {{ form.food_type }}
+        {{ form.food_type.errors }}
+      </div>
+    </div>
+    <div class="row align-items-center">
       <div class="col">
-        <input type="hidden" name="step" value="1" />
+        <input type="hidden" name="step" value="2" />
         <button type="submit" name="submit" value="Dalej">Wyslij</button>
       </div>
     </div>

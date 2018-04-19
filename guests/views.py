@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django import forms
 from django.shortcuts import render
+from django.utils.timezone import now
 from django.views import View
 
 from guests.forms import Password_Form, Confirm_Form, Guest_Formset
@@ -51,12 +51,13 @@ class Guest_Confirm(View):
         else:
             return render(request, "guest_password.html",
                           {"title": self.title,
-                           "form": Password_Form()})
+                           "form": password_form})
 
     def _handle_step_2(self, request):
         form = Confirm_Form(instance=Guest.objects.get(password=request.POST.get("password")),
                             data=request.POST)
         if form.is_valid():
+            form.instance.confirmation_date = now()
             form.save()
             return render(request, 'main.html',
                           {"title": "Dziekujemy za potwierdzenie!"})

@@ -27,6 +27,7 @@ class Guest(models.Model):
                                                                                 ("Wegetarianskie", "Wegetarianskie"),
                                                                                 ("Weganskie", "Weganskie")))
     confirm = models.NullBooleanField(default=None)
+    confirmation_date = models.DateTimeField(blank=True, null=True, default=None)
 
     def __unicode__(self):
         return self.name
