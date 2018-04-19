@@ -20,7 +20,7 @@ class Guest(models.Model):
     confirmed_adults = models.PositiveSmallIntegerField(default=0)
     confirmed_children = models.PositiveSmallIntegerField(default=0)
     confirmed_toddlers = models.PositiveSmallIntegerField(default=0)
-    password = models.CharField(max_length=10, unique=True)
+    password = models.CharField(max_length=10, unique=True, blank=True)
     transport = models.BooleanField(default=False)
     night_stay = models.BooleanField(default=False)
     food_type = models.CharField(max_length=15, default="Standardowe", choices=(("Standardowe", "Standardowe"),

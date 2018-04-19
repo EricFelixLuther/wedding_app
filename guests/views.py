@@ -5,6 +5,7 @@ from django import forms
 from django.shortcuts import render
 from django.views import View
 
+from guests.forms import Password_Form, Confirm_Form, Guest_Formset
 from guests.models import Guest
 
 
@@ -15,35 +16,54 @@ class Guests_Management(View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name,
                       {"title": self.title,
-                       "formset": forms.modelformset_factory(Guest, fields="__all__")})
+                       "formset": Guest_Formset()})
 
     def post(self, request, *args, **kwargs):
-        raw_formset = forms.modelformset_factory(Guest, fields="__all__")
-        formset = raw_formset(data=request.POST)
+        formset = Guest_Formset(data=request.POST)
         if formset.is_valid():
             formset.save()
-            formset = raw_formset()
+            formset = Guest_Formset()
         return render(request, self.template_name,
                       {"title": self.title,
                        "formset": formset})
 
 
 class Guest_Confirm(View):
-    template_name = 'guest_confirm.html'
     title = "Potwierdzenie przybycia"
 
     def get(self, request, *args, **kwargs):
-        form = forms.modelform_factory(Guest, fields=("password"))()
-        return render(request, self.template_name,
+        form = Password_Form()
+        return render(request, "guest_password.html",
                       {"title": self.title,
                        "form": form})
 
     def post(self, request, *args, **kwargs):
-        guest = Guest.objects.get(password=request.POST.get("password"))
-        raw_form = forms.modelform_factory(Guest,
-                                           fields=("confirmed_adults", "confirmed_children", "confirmed_toddlers",
-                                                   "transport", "night_stay", "food_type", "password", "confirm"))
-        form = raw_form(instance=guest)
-        return render(request, self.template_name,
+        if request.POST.get("step") == '1':
+            return self._handle_step_1(request)
+        else:
+            return self._handle_step_2(request)
+
+    def _handle_step_1(self, request):
+        password_form = Password_Form(data=request.POST)
+        if password_form.is_valid():
+            form = Confirm_Form(instance=password_form.found_guest)
+            return self._render_confirm_form(request, form)
+        else:
+            return render(request, "guest_password.html",
+                          {"title": self.title,
+                           "form": Password_Form()})
+
+    def _handle_step_2(self, request):
+        form = Confirm_Form(instance=Guest.objects.get(password=request.POST.get("password")),
+                            data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'main.html',
+                          {"title": "Dziekujemy za potwierdzenie!"})
+        else:
+            return self._render_confirm_form(request, form)
+
+    def _render_confirm_form(self, request, form):
+        return render(request, 'guest_confirm.html',
                       {"title": self.title,
                        "form": form})
