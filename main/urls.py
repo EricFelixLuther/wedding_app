@@ -6,7 +6,6 @@ from main.views import Test_View
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', Test_View.as_view(), name="test"),
+    url(r'^$', Guest_Confirm.as_view(), name="guest_confirm"),
     url(r'^guests_management/', Guests_Management.as_view(), name="guest_management"),
-    url(r'^guest_confirm/', Guest_Confirm.as_view(), name="guest_confirm"),
 ]
