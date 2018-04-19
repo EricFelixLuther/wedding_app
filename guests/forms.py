@@ -30,9 +30,8 @@ Confirm_Form = forms.modelform_factory(
             "food_type",
             "password",
             "confirm"),
-    widgets={"confirm": forms.Select(choices=(("", "---------"),
-                                              (True, "Tak"),
-                                              ( False, "Nie"))),
+    widgets={"confirm": forms.Select(choices=((True, "Tak"),
+                                              (False, "Nie"))),
              "confirmation_date": forms.HiddenInput,
              "password": forms.HiddenInput}
 )

@@ -1,5 +1,13 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'guest_confirm.js' %}">
+
+</script>
+{% endblock %}
+
 {% block content %}
 
 <div class="container text-center">
@@ -24,7 +32,7 @@
         {{ form.confirm }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Dorosli
       </div>
@@ -33,7 +41,7 @@
         {{ form.confirmed_adults.errors }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Dzieci w wieku 4 do 12 lat
       </div>
@@ -42,7 +50,7 @@
         {{ form.confirmed_children.errors }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Dzieci do lat 4
       </div>
@@ -51,7 +59,7 @@
         {{ form.confirmed_toddlers.errors }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Czy potrzebujecie transportu autokarem spod kosciola na wesele?
       </div>
@@ -59,7 +67,7 @@
         {{ form.transport }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Czy potrzebujecie noclegu? (Cena: )
       </div>
@@ -67,7 +75,7 @@
         {{ form.night_stay }}
       </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
         Rodzaj menu
       </div>
@@ -84,31 +92,21 @@
     </div>
   </form>
 </div>
-<div class="container-fluid text-center">
+<div class="container-fluid text-center reveal-for-confirm">
   <div class="row">
     <div class="col col-lg-6">
-      <div class="row">
-        <div class="col">
-          <h2>Lokalizacja kosciola</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2147119061624!2d21.15202107918583!3d52.45266690304174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!5e0!3m2!1sen!2spl!4v1524145664046" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-      </div>
+      <h2>Lokalizacja kosciola</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2147119061624!2d21.15202107918583!3d52.45266690304174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!5e0!3m2!1sen!2spl!4v1524145664046" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
     <div class="col col-lg-6">
-      <div class="row">
-        <div class="col">
-          <h2>Lokalizacja wesela</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16341.854269549916!2d21.05873605894937!3d52.493054879192954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb70eb8735622a1b6!2sHotel*2A*2A*2A+Pan+Tadeusz!5e0!3m2!1sen!2spl!4v1524145816176" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-      </div>
+      <h2>Lokalizacja wesela</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16341.854269549916!2d21.05873605894937!3d52.493054879192954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb70eb8735622a1b6!2sHotel*2A*2A*2A+Pan+Tadeusz!5e0!3m2!1sen!2spl!4v1524145816176" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2>Dojazd</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d46251.46542650122!2d21.064676095616647!3d52.46477227431201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!3m2!1d52.4517903!2d21.1505539!4m5!1s0x471ec0637a14feb3%3A0xb70eb8735622a1b6!2sHotel*2A*2A*2A+Pan+Tadeusz%2C+Czes%C5%82awa+Mi%C5%82osza+20%2C+05-140+Serock!3m2!1d52.499300899999994!2d21.0678372!5e0!3m2!1sen!2spl!4v1524148612216" width="1600" height="1200" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
   </div>
 </div>
