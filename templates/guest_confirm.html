@@ -21,7 +21,7 @@
     </div>
     <div class="row">
       <div class="col red">
-        Prosimy o potwierdzanie przybycia do 17 czerwca 2018
+        Prosimy o potwierdzenie przybycia do <b>17 czerwca 2018</b>
       </div>
     </div>
     <div class="row align-items-center">
@@ -34,7 +34,7 @@
     </div>
     <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
-        Dorosli
+        Dorośli i dzieci powyżej 12 lat
       </div>
       <div class="col-sm-6 col-md-5 ">
         {{ form.confirmed_adults }}
@@ -61,18 +61,72 @@
     </div>
     <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
-        Czy potrzebujecie transportu autokarem spod kosciola na wesele?
+        Czy potrzebujecie transportu autokarem?
       </div>
       <div class="col-sm-6 col-md-5 ">
         {{ form.transport }}
+        {{ form.transport.errors }}
       </div>
     </div>
     <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
-        Czy potrzebujecie noclegu? (Cena: )
+        Czy potrzebujecie noclegu?
+        <table class="table">
+          <thead>
+            <tr>
+              <th colspan="3">Cennik</th>
+            </tr>
+            <tr>
+              <th>Typ pokoju</th>
+              <th>Cena standardowa</th>
+              <th>Cena weselna*</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2-osobowy standard</td>
+              <td>335 PLN</td>
+              <td>235 PLN</td>
+            </tr>
+            <tr>
+              <td>1-osobowy standard</td>
+              <td>295 PLN</td>
+              <td>206 PLN</td>
+            </tr>
+            <tr>
+              <td>2-osobowy deluxe</td>
+              <td>365 PLN</td>
+              <td>255</td>
+            </tr>
+            <tr>
+              <td>1-osobowy deluxe</td>
+              <td>330 PLN</td>
+              <td>231 PLN</td>
+            </tr>
+            <tr>
+              <td>Apartament</td>
+              <td>460 PLN</td>
+              <td>322 PLN</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci do 5 lat</td>
+              <td colspan="2">0 zł</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci od 5 do 1 lat</td>
+              <td colspan="2">50 zł</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci od 12 lat i dorośli</td>
+              <td colspan="2">100 zł</td>
+            </tr>
+          </tbody>
+        </table>
+        <i>*Cena weselna może być niższa w zależności od całościowej ilości zamówionych pokoi na rzecz gości weselnych.</i>
       </div>
       <div class="col-sm-6 col-md-5 ">
         {{ form.night_stay }}
+        {{ form.night_stay.errors }}
       </div>
     </div>
     <div class="row align-items-center reveal-for-confirm">
@@ -84,10 +138,28 @@
         {{ form.food_type.errors }}
       </div>
     </div>
+    <div class="row align-items-center reveal-for-confirm">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Prosimy zostawić kontakt w razie gdyby zaszła potrzeba przekazania jakiś informacji
+      </div>
+      <div class="col-sm-6 col-md-5">
+        {{ form.contact_info }}
+        {{ form.contact_info.errors }}
+      </div>
+    </div>
+    <div class="row align-items-center reveal-for-confirm">
+      <div class="col-sm-6 col-md-5 offset-md-1">
+        Czy chcecie coś jeszcze nam przekazać?
+      </div>
+      <div class="col-sm-6 col-md-5">
+        {{ form.additional_info }}
+        {{ form.additional_info.errors }}
+      </div>
+    </div>
     <div class="row align-items-center">
       <div class="col">
         <input type="hidden" name="step" value="2" />
-        <button type="submit" name="submit" value="Dalej">Wyslij</button>
+        <button type="submit" name="submit" value="Dalej">Wyślij</button>
       </div>
     </div>
   </form>
@@ -95,7 +167,7 @@
 <div class="container-fluid text-center reveal-for-confirm">
   <div class="row">
     <div class="col col-lg-6">
-      <h2>Lokalizacja kosciola</h2>
+      <h2>Lokalizacja kościoła</h2>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2147119061624!2d21.15202107918583!3d52.45266690304174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!5e0!3m2!1sen!2spl!4v1524145664046" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
     <div class="col col-lg-6">
@@ -105,7 +177,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <h2>Dojazd</h2>
+      <h2>Dojazd do <a href="http://www.hotelpantadeusz.pl/">Hotelu Pan Tadeusz</a></h2>
       <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d46251.46542650122!2d21.064676095616647!3d52.46477227431201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!3m2!1d52.4517903!2d21.1505539!4m5!1s0x471ec0637a14feb3%3A0xb70eb8735622a1b6!2sHotel*2A*2A*2A+Pan+Tadeusz%2C+Czes%C5%82awa+Mi%C5%82osza+20%2C+05-140+Serock!3m2!1d52.499300899999994!2d21.0678372!5e0!3m2!1sen!2spl!4v1524148612216" width="1000" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
   </div>

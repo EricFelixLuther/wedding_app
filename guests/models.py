@@ -21,14 +21,29 @@ class Guest(models.Model):
     confirmed_children = models.PositiveSmallIntegerField(default=0, blank=True)
     confirmed_toddlers = models.PositiveSmallIntegerField(default=0, blank=True)
     password = models.CharField(max_length=10, unique=True, blank=True)
-    transport = models.BooleanField(default=False, blank=True)
-    night_stay = models.BooleanField(default=False, blank=True)
-    food_type = models.CharField(max_length=15, default="Standardowe", blank = True,
+    transport = models.CharField(max_length=60, choices=(
+        ("Nie potrzeba", "Nie potrzeba"),
+        ("Spod kościoła do hotelu", "Spod kościoła do hotelu"),
+        ("Z placu przed kolegiatą Przemienienia Pańskiego w Radzyminie",
+         "Z placu przed kolegiatą Przemienienia Pańskiego w Radzyminie"),
+        ("Z Dworca Wileńskiego w Warszawie", "Z Dworca Wileńskiego w Warszawie")
+    ))
+    night_stay = models.CharField(max_length=18, choices=(
+        ("Nie chcę pokoju", "Nie chcę pokoju"),
+        ("2-osobowy standard", "2-osobowy standard"),
+        ("1-osobowy standard", "1-osobowy standard"),
+        ("2-osobowy deluxe", "2-osobowy deluxe"),
+        ("1-osobowy deluxe", "1-osobowy deluxe"),
+        ("Apartament", "Apartament")
+    ))
+    food_type = models.CharField(max_length=15,
                                  choices=(("Standardowe", "Standardowe"),
                                           ("Wegetarianskie", "Wegetarianskie"),
                                           ("Weganskie", "Weganskie")))
     confirm = models.NullBooleanField(default=None)
     confirmation_date = models.DateTimeField(blank=True, null=True, default=None)
+    contact_info = models.CharField(max_length=64, blank=True, null=True, default='')
+    additional_info = models.TextField(blank=True, null=True, default='')
 
     def __unicode__(self):
         return self.name
