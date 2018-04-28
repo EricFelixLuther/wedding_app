@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-h)eqpwm!y%$m2kn=uxmcq0m@#d7ru!z20s#$xtz@&(*(7ns41'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['77.55.236.168', 'maciejczuk.pl']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/eric/MyCode/wedding_app/templates/'],
+        'DIRS': ['/var/www/wedding_app/app/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
