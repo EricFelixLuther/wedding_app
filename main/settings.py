@@ -25,7 +25,7 @@ SECRET_KEY = '-h)eqpwm!y%$m2kn=uxmcq0m@#d7ru!z20s#$xtz@&(*(7ns41'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['77.55.236.168', 'maciejczuk.pl']
+ALLOWED_HOSTS = ['77.55.236.168', 'maciejczuk.pl', 'www.maciejczuk.pl']
 
 
 # Application definition
