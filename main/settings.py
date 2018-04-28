@@ -126,6 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     "static/"
 ]
+STATIC_ROOT = "/var/www/wedding_app/static/"
 
 try:
     from local_settings import *
