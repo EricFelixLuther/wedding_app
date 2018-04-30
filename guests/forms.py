@@ -33,23 +33,27 @@ class Confirm_Form(forms.ModelForm):
                   "confirm",
                   "additional_info",
                   "contact_info")
-        widgets = {"confirm": forms.Select(choices=((True, "Tak"),
-                                                    (False, "Nie"))),
+        widgets = {"confirm": forms.Select(choices=(("on", "Tak"),
+                                                    ('', "Nie"))),
                    "confirmation_date": forms.HiddenInput,
                    "password": forms.HiddenInput}
 
     def clean(self):
+        print self.cleaned_data
         if self.cleaned_data["confirm"]:
+            print "here"
             for field in ("transport", "night_stay", "food_type"):
                 if not self.cleaned_data[field]:
                     self.add_error(field, "To pole jest wymagane")
         else:
+            print "here 2"
             self.cleaned_data["confirmed_adults"] = 0
             self.cleaned_data["confirmed_children"] = 0
             self.cleaned_data["confirmed_toddlers"] = 0
             self.cleaned_data["transport"] = ''
             self.cleaned_data["night_stay"] = ''
             self.cleaned_data["food_type"] = ''
+        return self.cleaned_data
 
 
 pwd_characters = string.letters + string.digits
