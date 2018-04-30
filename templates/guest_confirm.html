@@ -109,59 +109,10 @@
     </div>
     <div class="row align-items-center reveal-for-confirm">
       <div class="col-sm-6 col-md-5 offset-md-1">
-        Czy potrzebujecie noclegu?
-        <table class="table">
-          <thead>
-            <tr>
-              <th colspan="3">Cennik</th>
-            </tr>
-            <tr>
-              <th>Typ pokoju</th>
-              <th>Cena standardowa</th>
-              <th>Cena weselna*</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2-osobowy standard</td>
-              <td>335 PLN</td>
-              <td>235 PLN</td>
-            </tr>
-            <tr>
-              <td>1-osobowy standard</td>
-              <td>295 PLN</td>
-              <td>206 PLN</td>
-            </tr>
-            <tr>
-              <td>2-osobowy deluxe</td>
-              <td>365 PLN</td>
-              <td>255</td>
-            </tr>
-            <tr>
-              <td>1-osobowy deluxe</td>
-              <td>330 PLN</td>
-              <td>231 PLN</td>
-            </tr>
-            <tr>
-              <td>Apartament</td>
-              <td>460 PLN</td>
-              <td>322 PLN</td>
-            </tr>
-            <tr>
-              <td>Dostawka dzieci do 5 lat</td>
-              <td colspan="2">0 zł</td>
-            </tr>
-            <tr>
-              <td>Dostawka dzieci od 5 do 12 lat</td>
-              <td colspan="2">50 zł</td>
-            </tr>
-            <tr>
-              <td>Dostawka dzieci od 12 lat i dorośli</td>
-              <td colspan="2">100 zł</td>
-            </tr>
-          </tbody>
-        </table>
-        <i>*Cena weselna może być niższa w zależności od całościowej ilości zamówionych pokoi na rzecz gości weselnych.</i>
+        Czy potrzebujecie noclegu?<br />
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#cennik_modal">
+          Sprawdź cennik
+        </button>
       </div>
       <div class="col-sm-6 col-md-5 ">
         {{ form.night_stay }}
@@ -218,6 +169,75 @@
     <div class="col">
       <h2>Dojazd do <a href="http://www.hotelpantadeusz.pl/">Hotelu Pan Tadeusz</a></h2>
       <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d46251.46542650122!2d21.064676095616647!3d52.46477227431201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x471ec3e1e53a458d%3A0xf6888c2ff64b3cbd!2sKaplica+%C5%9Aw.+Franciszka+z+Asy%C5%BCu%2C+Radzymin-Rejent%C3%B3wka!3m2!1d52.4517903!2d21.1505539!4m5!1s0x471ec0637a14feb3%3A0xb70eb8735622a1b6!2sHotel*2A*2A*2A+Pan+Tadeusz%2C+Czes%C5%82awa+Mi%C5%82osza+20%2C+05-140+Serock!3m2!1d52.499300899999994!2d21.0678372!5e0!3m2!1sen!2spl!4v1524148612216" width="1000" height="800" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cennik_modal" tabindex="-1" role="dialog" aria-labelledby="cennikModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cennik weselny Hotelu Pan Tadeusz</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th colspan="3">Cennik</th>
+            </tr>
+            <tr>
+              <th>Typ pokoju</th>
+              <th>Cena standardowa</th>
+              <th>Cena weselna*</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2-osobowy standard</td>
+              <td>335 PLN</td>
+              <td>235 PLN</td>
+            </tr>
+            <tr>
+              <td>1-osobowy standard</td>
+              <td>295 PLN</td>
+              <td>206 PLN</td>
+            </tr>
+            <tr>
+              <td>2-osobowy deluxe</td>
+              <td>365 PLN</td>
+              <td>255</td>
+            </tr>
+            <tr>
+              <td>1-osobowy deluxe</td>
+              <td>330 PLN</td>
+              <td>231 PLN</td>
+            </tr>
+            <tr>
+              <td>Apartament</td>
+              <td>460 PLN</td>
+              <td>322 PLN</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci do 5 lat</td>
+              <td colspan="2">0 zł</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci od 5 do 12 lat</td>
+              <td colspan="2">50 zł</td>
+            </tr>
+            <tr>
+              <td>Dostawka dzieci od 12 lat i dorośli</td>
+              <td colspan="2">100 zł</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <i>*Cena weselna może być niższa w zależności od całościowej ilości zamówionych pokoi na rzecz gości weselnych.</i>
+      </div>
     </div>
   </div>
 </div>
