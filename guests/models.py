@@ -21,14 +21,14 @@ class Guest(models.Model):
     confirmed_children = models.PositiveSmallIntegerField(default=0, blank=True)
     confirmed_toddlers = models.PositiveSmallIntegerField(default=0, blank=True)
     password = models.CharField(max_length=10, unique=True, blank=True)
-    transport = models.CharField(max_length=60, choices=(
+    transport = models.CharField(max_length=60, blank=True, null=True, default='', choices=(
         ("Nie potrzeba", "Nie potrzeba"),
         ("Spod kościoła do hotelu", "Spod kościoła do hotelu"),
         ("Z placu przed kolegiatą Przemienienia Pańskiego w Radzyminie",
          "Z placu przed kolegiatą Przemienienia Pańskiego w Radzyminie"),
         ("Z Dworca Wileńskiego w Warszawie", "Z Dworca Wileńskiego w Warszawie")
     ))
-    night_stay = models.CharField(max_length=18, choices=(
+    night_stay = models.CharField(max_length=18, blank=True, null=True, default='', choices=(
         ("Nie chcę pokoju", "Nie chcę pokoju"),
         ("2-osobowy standard", "2-osobowy standard"),
         ("1-osobowy standard", "1-osobowy standard"),
@@ -36,7 +36,7 @@ class Guest(models.Model):
         ("1-osobowy deluxe", "1-osobowy deluxe"),
         ("Apartament", "Apartament")
     ))
-    food_type = models.CharField(max_length=15,
+    food_type = models.CharField(max_length=15, blank=True, null=True, default='',
                                  choices=(("Standardowe", "Standardowe"),
                                           ("Wegetarianskie", "Wegetarianskie"),
                                           ("Weganskie", "Weganskie")))
