@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from collections import OrderedDict
+
+from django.db.models import Count
 from django.shortcuts import render
 from django.utils.timezone import now
 from django.views import View
@@ -12,11 +15,51 @@ from guests.models import Guest
 class Guests_Management(View):
     template_name = 'guest_management.html'
     title = "Guest management"
+    not_selected = "NIE WYBRANO"
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name,
                       {"title": self.title,
-                       "guest_list": Guest.objects.all()})
+                       "guest_list": Guest.objects.all(),
+                       "statistics": self._statistics()})
+
+    def _statistics(self):
+        statistics = {}
+        self._calculate_stat(statistics, "transport")
+        self._calculate_stat(statistics, "night_stay")
+        self._calculate_stat(statistics, "food_type")
+        self._calculate_stat(statistics, "confirm")
+        self._calculate_stat(statistics, "invitation_given")
+        self._calculate_confirmed_stats(statistics)
+        return statistics
+
+    def _calculate_stat(self, statistics, stat_name):
+        stat = {self.not_selected: 0}
+        for each in Guest.objects.values(stat_name).annotate(Count(stat_name)):
+            key = each[stat_name]
+            val = each[stat_name + "__count"]
+            stat[key] = val
+        for each in [None, '']:
+            if stat.get(each):
+                stat[self.not_selected] += stat[each]
+                del stat[each]
+        statistics[stat_name] = stat
+
+    def _calculate_confirmed_stats(self, statistics):
+        confirmed = OrderedDict()
+        confirmed["Hers"] = [0, 0, 0, 0]
+        confirmed["His"] = [0, 0, 0, 0]
+        confirmed["Both"] = [0, 0, 0, 0]
+        confirmed["Sum"] = [0, 0, 0, 0]
+        for guest in Guest.objects.all():
+            confirmed[guest.side][0] += guest.confirmed_adults
+            confirmed[guest.side][1] += guest.confirmed_children
+            confirmed[guest.side][2] += guest.confirmed_toddlers
+            confirmed[guest.side][3] += sum((guest.confirmed_adults, guest.confirmed_children, guest.confirmed_toddlers))
+        for side in ("His", "Hers", "Both"):
+            for i in range(4):
+                confirmed["Sum"][i] += confirmed[side][i]
+        statistics["confirmed"] = confirmed
 
 
 class Guest_Confirm(View):

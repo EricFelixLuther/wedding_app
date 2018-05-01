@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-{% load static %}
+{% load static guests_templatetags %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'guest_management.css' %}">
@@ -9,18 +9,132 @@
     position: sticky;
   }
 </style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
   <div class="row">
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Transport</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in statistics.transport.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ val }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Pokoje</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in statistics.night_stay.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ val }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Jedzenie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in statistics.food_type.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ val }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Potwierdzanie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in statistics.confirm.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ val }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Zaproszenia wysłane</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, val in statistics.invitation_given.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ val }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="5">Potwierdzone osoby</th>
+          </tr>
+          <tr>
+            <th>Strona</th>
+            <th>Dorośli i +12</th>
+            <th>Wiek 5-12</th>
+            <th>Wiek < 5</th>
+            <th>Suma</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for side, list in statistics.confirmed.items %}
+            <tr>
+              <td>{% side side %}</td>
+              <td>{{ list.0 }}</td>
+              <td>{{ list.1 }}</td>
+              <td>{{ list.2 }}</td>
+              <td>{{ list.3 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
     <div class="col">
-      <table class="table table-responsive">
-        <thead style="">
+      <table class="table table-responsive table-striped">
+        <thead style="position: sticky">
           <tr>
             <th rowspan="2">#No</th>
             <th rowspan="2">Name</th>
-            <th rowspan="2">Nickname</th>
             <th rowspan="2">Side</th>
             <th rowspan="2">Labels</th>
             <th rowspan="2">Priority</th>
@@ -29,8 +143,11 @@
             <th rowspan="2">Transport</th>
             <th rowspan="2">Night stay</th>
             <th rowspan="2">Food</th>
+            <th rowspan="2">Contact</th>
             <th rowspan="2">Confirmed</th>
             <th rowspan="2">Confirm date</th>
+            <th rowspan="2">Additional info</th>
+            <th rowspan="2">Invitation given</th>
           </tr>
           <tr>
             <th>Adults</th>
@@ -40,13 +157,12 @@
         </thead>
         <tbody>
           {% for guest in guest_list %}
-            <tr>
+            <tr title="{{ guest.nickname }}">
               <td>{{ forloop.counter }}</td>
               <td>{{ guest.name }}</td>
-              <td>{{ guest.nickname }}</td>
-              <td>{{ guest.side }}</td>
+              <td>{% side guest.side %}</td>
               <td>{{ guest.format_labels }}</td>
-              <td>{{ guest.priority }}</td>
+              <td>{% priority guest.priority %}</td>
               <td>{{ guest.confirmed_adults }}</td>
               <td>{{ guest.confirmed_children }}</td>
               <td>{{ guest.confirmed_toddlers }}</td>
@@ -55,10 +171,10 @@
               <td>{{ guest.night_stay }}</td>
               <td>{{ guest.food_type }}</td>
               <td>{{ guest.contact_info }}</td>
-              <td>{{ guest.confirm }}</td>
+              <td>{% confirm guest.confirm %}</td>
               <td>{{ guest.confirmation_date }}</td>
               <td>{{ guest.additional_info }}</td>
-              <td>{{ guest.invitation_given }}</td>
+              <td>{% confirm guest.invitation_given %}</td>
             </tr>
           {% endfor %}
         </tbody>

@@ -1,0 +1,9 @@
+{% if side == "His" %}
+<i class="fas fa-mars"></i>
+{% elif side == "Hers" %}
+<i class="fas fa-venus"></i>
+{% elif side == "Both" %}
+<i class="fas fa-venus-mars"></i>
+{% else %}
+{{ side }}
+{% endif %}

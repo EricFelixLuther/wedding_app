@@ -1,0 +1,9 @@
+{% if priority == "High" %}
+<i class="fas fa-angle-double-up"></i>
+{% elif priority == "Medium" %}
+<i class="fas fa-angle-up"></i>
+{% elif priority == "Low" %}
+<i class="fas fa-angle-down"></i>
+{% else %}
+{{ priority }}
+{% endif %}
