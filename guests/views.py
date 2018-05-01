@@ -49,6 +49,7 @@ class Guest_Confirm(View):
                             data=request.POST)
         if form.is_valid():
             form.instance.confirmation_date = now()
+            form.instance.invitation_given = True
             form.save()
             return render(request, 'main.html',
                           {"title": "Dziekujemy za potwierdzenie!"})
