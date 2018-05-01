@@ -54,26 +54,3 @@ class Confirm_Form(forms.ModelForm):
             self.cleaned_data["night_stay"] = ''
             self.cleaned_data["food_type"] = ''
         return self.cleaned_data
-
-
-pwd_characters = string.letters + string.digits
-
-
-class Guest_Form(forms.ModelForm):
-    class Meta:
-        model = Guest
-        fields = "__all__"
-
-    def clean(self):
-        if not self.cleaned_data["password"]:
-            self.cleaned_data["password"] = self._generate_password()
-        return self.cleaned_data
-
-    def _generate_password(self):
-        pwd = ''
-        for i in range(10):
-            pwd += random.choice(pwd_characters)
-        return pwd
-
-
-Guest_Formset = forms.modelformset_factory(Guest, form=Guest_Form)

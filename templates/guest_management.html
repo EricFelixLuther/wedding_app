@@ -3,68 +3,66 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'guest_management.css' %}">
+<style media="screen">
+  thead {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-  {{ formset.management_form }}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <table class="table table-responsive">
-          <thead>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <table class="table table-responsive">
+        <thead style="">
+          <tr>
+            <th rowspan="2">#No</th>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Nickname</th>
+            <th rowspan="2">Side</th>
+            <th rowspan="2">Labels</th>
+            <th rowspan="2">Priority</th>
+            <th colspan="3">Confirmed</th>
+            <th rowspan="2">Password</th>
+            <th rowspan="2">Transport</th>
+            <th rowspan="2">Night stay</th>
+            <th rowspan="2">Food</th>
+            <th rowspan="2">Confirmed</th>
+            <th rowspan="2">Confirm date</th>
+          </tr>
+          <tr>
+            <th>Adults</th>
+            <th>Children</th>
+            <th>Toddlers</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for guest in guest_list %}
             <tr>
-              <th rowspan="2">#No</th>
-              <th rowspan="2">Name</th>
-              <th rowspan="2">Nickname</th>
-              <th rowspan="2">Side</th>
-              <th rowspan="2">Labels</th>
-              <th rowspan="2">Priority</th>
-              <th colspan="3">Confirmed</th>
-              <th rowspan="2">Password</th>
-              <th rowspan="2">Transport</th>
-              <th rowspan="2">Night stay</th>
-              <th rowspan="2">Food</th>
-              <th rowspan="2">Confirmed</th>
-              <th rowspan="2">Confirm date</th>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ guest.name }}</td>
+              <td>{{ guest.nickname }}</td>
+              <td>{{ guest.side }}</td>
+              <td>{{ guest.format_labels }}</td>
+              <td>{{ guest.priority }}</td>
+              <td>{{ guest.confirmed_adults }}</td>
+              <td>{{ guest.confirmed_children }}</td>
+              <td>{{ guest.confirmed_toddlers }}</td>
+              <td>{{ guest.password }}</td>
+              <td>{{ guest.transport }}</td>
+              <td>{{ guest.night_stay }}</td>
+              <td>{{ guest.food_type }}</td>
+              <td>{{ guest.contact_info }}</td>
+              <td>{{ guest.confirm }}</td>
+              <td>{{ guest.confirmation_date }}</td>
+              <td>{{ guest.additional_info }}</td>
             </tr>
-            <tr>
-              <th>Adults</th>
-              <th>Children</th>
-              <th>Toddlers</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for form in formset %}
-              <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ form.id }}
-                    {{ form.name }}{{ form.name.errors }}</td>
-                <td>{{ form.nickname }}{{ form.nickname.errors }}</td>
-                <td>{{ form.side }}{{ form.side.errors }}</td>
-                <td>{{ form.labels }}{{ form.labels.errors }}</td>
-                <td>{{ form.priority }}{{ form.priority.errors }}</td>
-                <td>{{ form.confirmed_adults }}{{ form.confirmed_adults.errors }}</td>
-                <td>{{ form.confirmed_children }}{{ form.confirmed_children.errors }}</td>
-                <td>{{ form.confirmed_toddlers }}{{ form.confirmed_toddlers.errors }}</td>
-                <td>{{ form.password }}{{ form.password.errors }}</td>
-                <td>{{ form.transport }}{{ form.transport.errors }}</td>
-                <td>{{ form.night_stay }}{{ form.night_stay.errors }}</td>
-                <td>{{ form.food_type }}{{ form.food_type.errors }}</td>
-                <td>{{ form.confirm }}</td>
-                <td>{{ form.confirmation_date }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col text-center">
-        <button type="submit">Save</button>
-      </div>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
-</form>
+</div>
 {% endblock content %}

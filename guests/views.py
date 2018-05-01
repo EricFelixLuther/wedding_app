@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.utils.timezone import now
 from django.views import View
 
-from guests.forms import Password_Form, Confirm_Form, Guest_Formset
+from guests.forms import Password_Form, Confirm_Form
 from guests.models import Guest
 
 
@@ -16,16 +16,7 @@ class Guests_Management(View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name,
                       {"title": self.title,
-                       "formset": Guest_Formset()})
-
-    def post(self, request, *args, **kwargs):
-        formset = Guest_Formset(data=request.POST)
-        if formset.is_valid():
-            formset.save()
-            formset = Guest_Formset()
-        return render(request, self.template_name,
-                      {"title": self.title,
-                       "formset": formset})
+                       "guest_list": Guest.objects.all()})
 
 
 class Guest_Confirm(View):

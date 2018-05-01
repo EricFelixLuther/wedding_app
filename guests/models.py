@@ -47,3 +47,6 @@ class Guest(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def format_labels(self):
+        return ", ".join(list(self.labels.values_list("label", flat=True)))
