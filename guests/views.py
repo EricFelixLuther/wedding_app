@@ -9,7 +9,7 @@ from django.utils.timezone import now
 from django.views import View
 
 from guests.forms import Password_Form, Confirm_Form
-from guests.models import Guest
+from guests.models import Guest, Information_Broadcast
 
 
 class Guests_Management(View):
@@ -21,7 +21,9 @@ class Guests_Management(View):
         return render(request, self.template_name,
                       {"title": self.title,
                        "guest_list": Guest.objects.all(),
-                       "statistics": self._statistics()})
+                       "statistics": self._statistics(),
+                       "confirmed": self._calculate_confirmed_stats()
+                       })
 
     def _statistics(self):
         statistics = {}
@@ -30,7 +32,6 @@ class Guests_Management(View):
         self._calculate_stat(statistics, "food_type")
         self._calculate_stat(statistics, "confirm")
         self._calculate_stat(statistics, "invitation_given")
-        self._calculate_confirmed_stats(statistics)
         return statistics
 
     def _calculate_stat(self, statistics, stat_name):
@@ -39,13 +40,14 @@ class Guests_Management(View):
             key = each[stat_name]
             val = each[stat_name + "__count"]
             stat[key] = val
-        for each in [None, '']:
+            print type(key), key
+        for each in [None, '', False, 'false', 'None']:
             if stat.get(each):
                 stat[self.not_selected] += stat[each]
                 del stat[each]
-        statistics[stat_name] = stat
+        statistics[stat_name.capitalize().replace("_", " ")] = stat
 
-    def _calculate_confirmed_stats(self, statistics):
+    def _calculate_confirmed_stats(self):
         confirmed = OrderedDict()
         confirmed["Hers"] = [0, 0, 0, 0]
         confirmed["His"] = [0, 0, 0, 0]
@@ -59,7 +61,7 @@ class Guests_Management(View):
         for side in ("His", "Hers", "Both"):
             for i in range(4):
                 confirmed["Sum"][i] += confirmed[side][i]
-        statistics["confirmed"] = confirmed
+        return confirmed
 
 
 class Guest_Confirm(View):
@@ -102,4 +104,5 @@ class Guest_Confirm(View):
     def _render_confirm_form(self, request, form):
         return render(request, 'guest_confirm.html',
                       {"title": self.title,
-                       "form": form})
+                       "form": form,
+                       "guest_information": Information_Broadcast.objects.all()})

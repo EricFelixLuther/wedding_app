@@ -51,3 +51,8 @@ class Guest(models.Model):
 
     def format_labels(self):
         return ", ".join(list(self.labels.values_list("label", flat=True)))
+
+
+class Information_Broadcast(models.Model):
+    information = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

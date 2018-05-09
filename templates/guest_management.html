@@ -15,92 +15,26 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col col-sm-3 col-md-2">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="2">Transport</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for key, val in statistics.transport.items %}
+    {% for title, stats in statistics.items %}
+      <div class="col col-sm-4 col-md-3">
+        <table class="table">
+          <thead>
             <tr>
-              <td>{{ key }}</td>
-              <td>{{ val }}</td>
+              <th colspan="2">{{ title }}</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col col-sm-3 col-md-2">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="2">Pokoje</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for key, val in statistics.night_stay.items %}
-            <tr>
-              <td>{{ key }}</td>
-              <td>{{ val }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col col-sm-3 col-md-2">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="2">Jedzenie</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for key, val in statistics.food_type.items %}
-            <tr>
-              <td>{{ key }}</td>
-              <td>{{ val }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col col-sm-3 col-md-2">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="2">Potwierdzanie</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for key, val in statistics.confirm.items %}
-            <tr>
-              <td>{{ key }}</td>
-              <td>{{ val }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col col-sm-3 col-md-2">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="2">Zaproszenia wysłane</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for key, val in statistics.invitation_given.items %}
-            <tr>
-              <td>{{ key }}</td>
-              <td>{{ val }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col col-sm-3 col-md-2">
+          </thead>
+          <tbody>
+            {% for key, val in stats.items %}
+              <tr>
+                <td>{{ key }}</td>
+                <td>{{ val }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+    <div class="col col-sm-4 col-md-3">
       <table class="table">
         <thead>
           <tr>
@@ -115,7 +49,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for side, list in statistics.confirmed.items %}
+          {% for side, list in confirmed.items %}
             <tr>
               <td>{% side side %}</td>
               <td>{{ list.0 }}</td>
