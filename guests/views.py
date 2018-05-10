@@ -39,8 +39,6 @@ class Guests_Management(View):
         for each in Guest.objects.values(stat_name).annotate(Count(stat_name)):
             key = each[stat_name]
             val = each[stat_name + "__count"]
-            stat[key] = val
-            print type(key), key
         for each in [None, '', False, 'false', 'None']:
             if stat.get(each):
                 stat[self.not_selected] += stat[each]
