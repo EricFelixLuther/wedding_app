@@ -12,9 +12,106 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 {% endblock %}
 
+{% block extra_js %}
+<script type="text/javascript">
+var find = function(obj){
+  var val = obj.val().toLowerCase();
+  var name = obj.attr("name");
+  $("td[placeholder='" + name + "']").each(function(){
+    if($(this).html().toLowerCase().indexOf(val) >= 0){
+      $(this).parent().show();
+    } else {
+      $(this).parent().hide();
+    }
+  });
+}
+
+var find_select = function(obj){
+  var val = obj.val();
+  var name = obj.attr("name");
+  var selector = "td[placeholder='" + name + "']";
+  if(val){
+    $(selector).each(function(){
+      if($(this).attr("value") == val){
+        $(this).parent().show();
+      } else {
+        $(this).parent().hide()
+      }
+    })
+  } else {
+    $(selector).each(function(){
+      $(this).parent().show();
+    });
+  }
+}
+
+$(document).ready(function(){
+  $("#id_name").keyup(function(){
+    find($(this));
+  });
+
+  $("#id_confirmed_adults").change(function(){
+    find($(this));
+  });
+
+  $("#id_confirmed_children").change(function(){
+    find($(this));
+  });
+
+  $("#id_confirmed_toddlers").change(function(){
+    find($(this));
+  });
+
+  $("#id_password").keyup(function(){
+    find($(this));
+  });
+
+  $("#id_additional_info").keyup(function(){
+    find($(this));
+  });
+
+  $("#id_contact_info").keyup(function(){
+    find($(this));
+  });
+
+  $("#id_priority").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_confirm").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_side").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_transport").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_night_stay").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_food_type").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_confirmation_date").change(function(){
+    find_select($(this));
+  });
+
+  $("#id_invitation_given").change(function(){
+    find_select($(this));
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
-  <div class="row">
+  <div id="statistics" class="row">
     {% for title, stats in statistics.items %}
       <div class="col col-sm-4 col-md-3">
         <table class="table">
@@ -62,7 +159,7 @@
       </table>
     </div>
   </div>
-  <div class="row">
+  <div id="guests" class="row">
     <div class="col">
       <table class="table table-responsive table-striped">
         <thead style="position: sticky">
@@ -88,27 +185,46 @@
             <th>Children</th>
             <th>Toddlers</th>
           </tr>
+          <tr>
+            <td></td>
+            <td>{{ filter_form.name }}</td>
+            <td>{{ filter_form.side }}</td>
+            <td></td>
+            <td>{{ filter_form.priority }}</td>
+            <td>{{ filter_form.confirmed_adults }}</td>
+            <td>{{ filter_form.confirmed_children }}</td>
+            <td>{{ filter_form.confirmed_toddlers }}</td>
+            <td>{{ filter_form.password }}</td>
+            <td>{{ filter_form.transport }}</td>
+            <td>{{ filter_form.night_stay }}</td>
+            <td>{{ filter_form.food_type }}</td>
+            <td>{{ filter_form.contact_info }}</td>
+            <td>{{ filter_form.confirm }}</td>
+            <td>{{ filter_form.confirmation_date }}</td>
+            <td>{{ filter_form.additional_info }}</td>
+            <td>{{ filter_form.invitation_given }}</td>
+          </tr>
         </thead>
-        <tbody>
+        <tbody id="guest_table">
           {% for guest in guest_list %}
             <tr title="{{ guest.nickname }}">
               <td>{{ forloop.counter }}</td>
-              <td>{{ guest.name }}</td>
-              <td>{% side guest.side %}</td>
-              <td>{{ guest.format_labels }}</td>
-              <td>{% priority guest.priority %}</td>
-              <td>{{ guest.confirmed_adults }}</td>
-              <td>{{ guest.confirmed_children }}</td>
-              <td>{{ guest.confirmed_toddlers }}</td>
-              <td>{{ guest.password }}</td>
-              <td>{{ guest.transport }}</td>
-              <td>{{ guest.night_stay }}</td>
-              <td>{{ guest.food_type }}</td>
-              <td>{{ guest.contact_info }}</td>
-              <td>{% confirm guest.confirm %}</td>
-              <td>{{ guest.confirmation_date }}</td>
-              <td>{{ guest.additional_info }}</td>
-              <td>{% confirm guest.invitation_given %}</td>
+              <td placeholder="name">{{ guest.name }}</td>
+              <td placeholder="side" value="{{ guest.side }}">{% side guest.side %}</td>
+              <td placeholder="labels">{{ guest.format_labels }}</td>
+              <td placeholder="priority" value="{{ guest.priority }}">{% priority guest.priority %}</td>
+              <td placeholder="confirmed_adults">{{ guest.confirmed_adults }}</td>
+              <td placeholder="confirmed_children">{{ guest.confirmed_children }}</td>
+              <td placeholder="confirmed_toddlers">{{ guest.confirmed_toddlers }}</td>
+              <td placeholder="password">{{ guest.password }}</td>
+              <td placeholder="transport" value="{{ guest.transport }}">{{ guest.transport }}</td>
+              <td placeholder="night_stay" value="{{ guest.night_stay }}">{{ guest.night_stay }}</td>
+              <td placeholder="food_type" value="{{ guest.food_type }}">{{ guest.food_type }}</td>
+              <td placeholder="contact_info">{{ guest.contact_info }}</td>
+              <td placeholder="confirm" value="{{ guest.confirm }}">{% confirm guest.confirm %}</td>
+              <td placeholder="confirmation_date" value="{{ guest.confirmation_date }}">{{ guest.confirmation_date }}</td>
+              <td placeholder="additional_info">{{ guest.additional_info }}</td>
+              <td placeholder="invitation_given" value="{{ guest.invitation_given }}">{% confirm guest.invitation_given %}</td>
             </tr>
           {% endfor %}
         </tbody>

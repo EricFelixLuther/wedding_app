@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.utils.timezone import now
 from django.views import View
 
-from guests.forms import Password_Form, Confirm_Form
+from guests.forms import Password_Form, Confirm_Form, Guest_Filter_Form
 from guests.models import Guest, Information_Broadcast
 
 
@@ -22,7 +22,8 @@ class Guests_Management(View):
                       {"title": self.title,
                        "guest_list": Guest.objects.all(),
                        "statistics": self._statistics(),
-                       "confirmed": self._calculate_confirmed_stats()
+                       "confirmed": self._calculate_confirmed_stats(),
+                       "filter_form": Guest_Filter_Form()
                        })
 
     def _statistics(self):
@@ -39,6 +40,7 @@ class Guests_Management(View):
         for each in Guest.objects.values(stat_name).annotate(Count(stat_name)):
             key = each[stat_name]
             val = each[stat_name + "__count"]
+            stat[key] = val
         for each in [None, '', False, 'false', 'None']:
             if stat.get(each):
                 stat[self.not_selected] += stat[each]
