@@ -33,12 +33,15 @@ class Confirm_Form(forms.ModelForm):
                   "confirm",
                   "additional_info",
                   "contact_info")
-        widgets = {"confirm": forms.Select(choices=(("on", "Tak"),
-                                                    ('', "Nie"))),
-                   "confirmation_date": forms.HiddenInput,
+        widgets = {"confirmation_date": forms.HiddenInput,
                    "password": forms.HiddenInput}
 
+    def __init__(self, *args, **kwargs):
+        super(Confirm_Form, self).__init__(*args, **kwargs)
+        self.fields["confirm"].widget.choices = (("2", "Tak"),  ("3", "Nie"))
+
     def clean(self):
+        print self.cleaned_data
         if self.cleaned_data["confirm"]:
             for field in ("transport", "night_stay", "food_type"):
                 if not self.cleaned_data[field]:

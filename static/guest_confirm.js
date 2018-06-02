@@ -8,7 +8,7 @@ var dis = "disabled";
 var rfc = ".reveal-for-confirm";
 
 var confirm = function(delay){
-  if(($("#id_confirm")).val() == "on"){
+  if(($("#id_confirm")).val() == "2"){
     $(rfc).show(delay);
     $(adults).removeAttr(dis);
     $(children).removeAttr(dis);

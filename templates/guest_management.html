@@ -2,234 +2,234 @@
 {% load static guests_templatetags %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'guest_management.css' %}">
-<style media="screen">
-  thead {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-</style>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'guest_management.css' %}">
+  <style media="screen">
+    thead {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+  </style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 {% endblock %}
 
 {% block extra_js %}
-<script type="text/javascript">
-var find = function(obj){
-  var val = obj.val().toLowerCase();
-  var name = obj.attr("name");
-  $("td[placeholder='" + name + "']").each(function(){
-    if($(this).html().toLowerCase().indexOf(val) >= 0){
-      $(this).parent().show();
-    } else {
-      $(this).parent().hide();
-    }
-  });
-}
-
-var find_select = function(obj){
-  var val = obj.val();
-  var name = obj.attr("name");
-  var selector = "td[placeholder='" + name + "']";
-  if(val){
-    $(selector).each(function(){
-      if($(this).attr("value") == val){
+  <script type="text/javascript">
+  var find = function(obj){
+    var val = obj.val().toLowerCase();
+    var name = obj.attr("name");
+    $("td[placeholder='" + name + "']").each(function(){
+      if($(this).html().toLowerCase().indexOf(val) >= 0){
         $(this).parent().show();
       } else {
-        $(this).parent().hide()
+        $(this).parent().hide();
       }
-    })
-  } else {
-    $(selector).each(function(){
-      $(this).parent().show();
     });
   }
-}
 
-$(document).ready(function(){
-  $("#id_name").keyup(function(){
-    find($(this));
-  });
+  var find_select = function(obj){
+    var val = obj.val();
+    var name = obj.attr("name");
+    var selector = "td[placeholder='" + name + "']";
+    if(val){
+      $(selector).each(function(){
+        if($(this).attr("value") == val){
+          $(this).parent().show();
+        } else {
+          $(this).parent().hide()
+        }
+      })
+    } else {
+      $(selector).each(function(){
+        $(this).parent().show();
+      });
+    }
+  }
 
-  $("#id_confirmed_adults").change(function(){
-    find($(this));
-  });
+  $(document).ready(function(){
+    $("#id_name").keyup(function(){
+      find($(this));
+    });
 
-  $("#id_confirmed_children").change(function(){
-    find($(this));
-  });
+    $("#id_confirmed_adults").change(function(){
+      find($(this));
+    });
 
-  $("#id_confirmed_toddlers").change(function(){
-    find($(this));
-  });
+    $("#id_confirmed_children").change(function(){
+      find($(this));
+    });
 
-  $("#id_password").keyup(function(){
-    find($(this));
-  });
+    $("#id_confirmed_toddlers").change(function(){
+      find($(this));
+    });
 
-  $("#id_additional_info").keyup(function(){
-    find($(this));
-  });
+    $("#id_password").keyup(function(){
+      find($(this));
+    });
 
-  $("#id_contact_info").keyup(function(){
-    find($(this));
-  });
+    $("#id_additional_info").keyup(function(){
+      find($(this));
+    });
 
-  $("#id_priority").change(function(){
-    find_select($(this));
-  });
+    $("#id_contact_info").keyup(function(){
+      find($(this));
+    });
 
-  $("#id_confirm").change(function(){
-    find_select($(this));
-  });
+    $("#id_priority").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_side").change(function(){
-    find_select($(this));
-  });
+    $("#id_confirm").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_transport").change(function(){
-    find_select($(this));
-  });
+    $("#id_side").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_night_stay").change(function(){
-    find_select($(this));
-  });
+    $("#id_transport").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_food_type").change(function(){
-    find_select($(this));
-  });
+    $("#id_night_stay").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_confirmation_date").change(function(){
-    find_select($(this));
-  });
+    $("#id_food_type").change(function(){
+      find_select($(this));
+    });
 
-  $("#id_invitation_given").change(function(){
-    find_select($(this));
+    $("#id_confirmation_date").change(function(){
+      find_select($(this));
+    });
+
+    $("#id_invitation_given").change(function(){
+      find_select($(this));
+    });
   });
-});
 </script>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-  <div id="statistics" class="row">
-    {% for title, stats in statistics.items %}
+  <div class="container-fluid">
+    <div id="statistics" class="row">
+      {% for title, stats in statistics.items %}
+        <div class="col col-sm-4 col-md-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="2">{{ title }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for key, val in stats.items %}
+                <tr>
+                  <td>{{ key }}</td>
+                  <td>{{ val }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
       <div class="col col-sm-4 col-md-3">
         <table class="table">
           <thead>
             <tr>
-              <th colspan="2">{{ title }}</th>
+              <th colspan="5">Potwierdzone osoby</th>
+            </tr>
+            <tr>
+              <th>Strona</th>
+              <th>Dorośli i +12</th>
+              <th>Wiek 5-12</th>
+              <th>Wiek < 5</th>
+              <th>Suma</th>
             </tr>
           </thead>
           <tbody>
-            {% for key, val in stats.items %}
+            {% for side, list in confirmed.items %}
               <tr>
-                <td>{{ key }}</td>
-                <td>{{ val }}</td>
+                <td>{% side side %}</td>
+                <td>{{ list.0 }}</td>
+                <td>{{ list.1 }}</td>
+                <td>{{ list.2 }}</td>
+                <td>{{ list.3 }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
-    {% endfor %}
-    <div class="col col-sm-4 col-md-3">
-      <table class="table">
-        <thead>
-          <tr>
-            <th colspan="5">Potwierdzone osoby</th>
-          </tr>
-          <tr>
-            <th>Strona</th>
-            <th>Dorośli i +12</th>
-            <th>Wiek 5-12</th>
-            <th>Wiek < 5</th>
-            <th>Suma</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for side, list in confirmed.items %}
+    </div>
+    <div id="guests" class="row">
+      <div class="col">
+        <table class="table table-striped">
+          <thead style="position: sticky">
             <tr>
-              <td>{% side side %}</td>
-              <td>{{ list.0 }}</td>
-              <td>{{ list.1 }}</td>
-              <td>{{ list.2 }}</td>
-              <td>{{ list.3 }}</td>
+              <th rowspan="2">#No</th>
+              <th rowspan="2">Name</th>
+              <th rowspan="2">Side</th>
+              <th rowspan="2">Labels</th>
+              <th rowspan="2">Priority</th>
+              <th colspan="3">Confirmed</th>
+              <th rowspan="2">Password</th>
+              <th rowspan="2">Transport</th>
+              <th rowspan="2">Night stay</th>
+              <th rowspan="2">Food</th>
+              <th rowspan="2">Contact</th>
+              <th rowspan="2">Confirmed</th>
+              <th rowspan="2">Confirm date</th>
+              <th rowspan="2">Additional info</th>
+              <th rowspan="2">Invitation given</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+            <tr>
+              <th>Adults</th>
+              <th>Children</th>
+              <th>Toddlers</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td>{{ filter_form.name }}</td>
+              <td>{{ filter_form.side }}</td>
+              <td></td>
+              <td>{{ filter_form.priority }}</td>
+              <td>{{ filter_form.confirmed_adults }}</td>
+              <td>{{ filter_form.confirmed_children }}</td>
+              <td>{{ filter_form.confirmed_toddlers }}</td>
+              <td>{{ filter_form.password }}</td>
+              <td>{{ filter_form.transport }}</td>
+              <td>{{ filter_form.night_stay }}</td>
+              <td>{{ filter_form.food_type }}</td>
+              <td>{{ filter_form.contact_info }}</td>
+              <td>{{ filter_form.confirm }}</td>
+              <td>{{ filter_form.confirmation_date }}</td>
+              <td>{{ filter_form.additional_info }}</td>
+              <td>{{ filter_form.invitation_given }}</td>
+            </tr>
+          </thead>
+          <tbody id="guest_table">
+            {% for guest in guest_list %}
+              <tr title="{{ guest.nickname }}">
+                <td>{{ forloop.counter }}</td>
+                <td placeholder="name">{{ guest.name }}</td>
+                <td placeholder="side" value="{{ guest.side }}">{% side guest.side %}</td>
+                <td placeholder="labels">{{ guest.format_labels }}</td>
+                <td placeholder="priority" value="{{ guest.priority }}">{% priority guest.priority %}</td>
+                <td placeholder="confirmed_adults">{{ guest.confirmed_adults }}</td>
+                <td placeholder="confirmed_children">{{ guest.confirmed_children }}</td>
+                <td placeholder="confirmed_toddlers">{{ guest.confirmed_toddlers }}</td>
+                <td placeholder="password">{{ guest.password }}</td>
+                <td placeholder="transport" value="{{ guest.transport }}">{{ guest.transport }}</td>
+                <td placeholder="night_stay" value="{{ guest.night_stay }}">{{ guest.night_stay }}</td>
+                <td placeholder="food_type" value="{{ guest.food_type }}">{{ guest.food_type }}</td>
+                <td placeholder="contact_info">{{ guest.contact_info }}</td>
+                <td placeholder="confirm" value="{{ guest.confirm }}">{% confirm guest.confirm %}</td>
+                <td placeholder="confirmation_date" value="{{ guest.confirmation_date }}">{{ guest.confirmation_date }}</td>
+                <td placeholder="additional_info">{{ guest.additional_info }}</td>
+                <td placeholder="invitation_given" value="{{ guest.invitation_given }}">{% confirm guest.invitation_given %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <div id="guests" class="row">
-    <div class="col">
-      <table class="table table-striped">
-        <thead style="position: sticky">
-          <tr>
-            <th rowspan="2">#No</th>
-            <th rowspan="2">Name</th>
-            <th rowspan="2">Side</th>
-            <th rowspan="2">Labels</th>
-            <th rowspan="2">Priority</th>
-            <th colspan="3">Confirmed</th>
-            <th rowspan="2">Password</th>
-            <th rowspan="2">Transport</th>
-            <th rowspan="2">Night stay</th>
-            <th rowspan="2">Food</th>
-            <th rowspan="2">Contact</th>
-            <th rowspan="2">Confirmed</th>
-            <th rowspan="2">Confirm date</th>
-            <th rowspan="2">Additional info</th>
-            <th rowspan="2">Invitation given</th>
-          </tr>
-          <tr>
-            <th>Adults</th>
-            <th>Children</th>
-            <th>Toddlers</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td>{{ filter_form.name }}</td>
-            <td>{{ filter_form.side }}</td>
-            <td></td>
-            <td>{{ filter_form.priority }}</td>
-            <td>{{ filter_form.confirmed_adults }}</td>
-            <td>{{ filter_form.confirmed_children }}</td>
-            <td>{{ filter_form.confirmed_toddlers }}</td>
-            <td>{{ filter_form.password }}</td>
-            <td>{{ filter_form.transport }}</td>
-            <td>{{ filter_form.night_stay }}</td>
-            <td>{{ filter_form.food_type }}</td>
-            <td>{{ filter_form.contact_info }}</td>
-            <td>{{ filter_form.confirm }}</td>
-            <td>{{ filter_form.confirmation_date }}</td>
-            <td>{{ filter_form.additional_info }}</td>
-            <td>{{ filter_form.invitation_given }}</td>
-          </tr>
-        </thead>
-        <tbody id="guest_table">
-          {% for guest in guest_list %}
-            <tr title="{{ guest.nickname }}">
-              <td>{{ forloop.counter }}</td>
-              <td placeholder="name">{{ guest.name }}</td>
-              <td placeholder="side" value="{{ guest.side }}">{% side guest.side %}</td>
-              <td placeholder="labels">{{ guest.format_labels }}</td>
-              <td placeholder="priority" value="{{ guest.priority }}">{% priority guest.priority %}</td>
-              <td placeholder="confirmed_adults">{{ guest.confirmed_adults }}</td>
-              <td placeholder="confirmed_children">{{ guest.confirmed_children }}</td>
-              <td placeholder="confirmed_toddlers">{{ guest.confirmed_toddlers }}</td>
-              <td placeholder="password">{{ guest.password }}</td>
-              <td placeholder="transport" value="{{ guest.transport }}">{{ guest.transport }}</td>
-              <td placeholder="night_stay" value="{{ guest.night_stay }}">{{ guest.night_stay }}</td>
-              <td placeholder="food_type" value="{{ guest.food_type }}">{{ guest.food_type }}</td>
-              <td placeholder="contact_info">{{ guest.contact_info }}</td>
-              <td placeholder="confirm" value="{{ guest.confirm }}">{% confirm guest.confirm %}</td>
-              <td placeholder="confirmation_date" value="{{ guest.confirmation_date }}">{{ guest.confirmation_date }}</td>
-              <td placeholder="additional_info">{{ guest.additional_info }}</td>
-              <td placeholder="invitation_given" value="{{ guest.invitation_given }}">{% confirm guest.invitation_given %}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 {% endblock content %}
